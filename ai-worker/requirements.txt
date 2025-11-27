@@ -1,0 +1,41 @@
+# Lyra AI Mark2 - Backend Requirements
+# Lightweight dependencies only - no heavy AI models
+
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+websockets==12.0
+pydantic==2.5.0
+python-multipart==0.0.6
+
+# System & Hardware
+psutil==5.9.6
+
+# Speech-to-Text (Offline)
+vosk==0.3.45
+
+# Text-to-Speech (Offline)
+pyttsx3==2.90
+
+# Vision Processing
+opencv-python==4.8.1.78
+pytesseract==0.3.10
+Pillow==10.1.0
+
+# Clipboard
+pyperclip==1.8.2
+
+# Vector Memory
+sentence-transformers==2.2.2
+faiss-cpu==1.7.4
+
+# Utilities
+numpy==1.24.3
+python-dotenv==1.0.0
+
+# Optional: Local LLM support (uncomment if needed)
+# llama-cpp-python==0.2.20
+
+# Optional: Cloud API support (uncomment if needed)
+# google-generativeai==0.3.1
+# openai==1.3.5

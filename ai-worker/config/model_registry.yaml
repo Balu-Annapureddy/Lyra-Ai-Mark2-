@@ -1,0 +1,89 @@
+config_version: "1.0"
+
+# Model Registry Configuration
+# Central registry of available models with requirements
+
+models:
+  # LLM Models
+  - id: phi-3-mini-1.8b
+    name: Phi-3 Mini 1.8B
+    type: llm
+    size_gb: 1.2
+    ram_required_gb: 4.0
+    download_url: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf
+    local_path: models/phi-3-mini-q4.gguf
+    enabled: true
+    description: "Lightweight LLM for low-RAM systems"
+    
+  - id: mistral-7b
+    name: Mistral 7B
+    type: llm
+    size_gb: 4.5
+    ram_required_gb: 8.0
+    download_url: https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF
+    local_path: models/mistral-7b-q4.gguf
+    enabled: false
+    description: "High-performance LLM for systems with 16GB+ RAM"
+  
+  # STT Models
+  - id: whisper-tiny
+    name: Whisper Tiny
+    type: stt
+    size_gb: 0.4
+    ram_required_gb: 2.0
+    download_url: https://huggingface.co/ggerganov/whisper.cpp
+    local_path: models/whisper-tiny.bin
+    enabled: true
+    description: "Fast and lightweight speech recognition"
+    
+  - id: whisper-base
+    name: Whisper Base
+    type: stt
+    size_gb: 0.7
+    ram_required_gb: 3.0
+    download_url: https://huggingface.co/ggerganov/whisper.cpp
+    local_path: models/whisper-base.bin
+    enabled: false
+    description: "Better accuracy than tiny, moderate resource usage"
+    
+  - id: whisper-small
+    name: Whisper Small
+    type: stt
+    size_gb: 1.4
+    ram_required_gb: 4.0
+    download_url: https://huggingface.co/ggerganov/whisper.cpp
+    local_path: models/whisper-small.bin
+    enabled: false
+    description: "High accuracy speech recognition"
+  
+  # TTS Models
+  - id: pyttsx3
+    name: pyttsx3 (System TTS)
+    type: tts
+    size_gb: 0.0
+    ram_required_gb: 0.1
+    download_url: ""
+    local_path: ""
+    enabled: true
+    description: "System text-to-speech, no download required"
+    
+  - id: coqui-xtts
+    name: Coqui XTTS
+    type: tts
+    size_gb: 0.5
+    ram_required_gb: 2.0
+    download_url: https://huggingface.co/coqui/XTTS-v2
+    local_path: models/xtts-v2
+    enabled: false
+    description: "Natural-sounding neural TTS"
+  
+  # Vision Models
+  - id: clip-vit-base
+    name: CLIP ViT Base
+    type: vision
+    size_gb: 0.6
+    ram_required_gb: 2.0
+    download_url: https://huggingface.co/openai/clip-vit-base-patch32
+    local_path: models/clip-vit-base
+    enabled: false
+    description: "Vision-language model for image understanding"

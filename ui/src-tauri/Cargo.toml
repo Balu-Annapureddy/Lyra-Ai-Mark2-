@@ -1,0 +1,20 @@
+[package]
+name = "lyra-ai-mark2"
+version = "1.0.0"
+description = "Lightweight offline + cloud hybrid AI assistant"
+authors = ["Lyra Team"]
+license = ""
+repository = ""
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "1.5", features = [] }
+
+[dependencies]
+tauri = { version = "1.5", features = [ "shell-open", "window-all", "fs-all", "http-all"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

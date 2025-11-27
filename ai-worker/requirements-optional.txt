@@ -1,0 +1,4 @@
+# Optional dependencies for enhanced features
+torch>=2.1.0  # For NVIDIA GPU support
+pyopencl>=2023.1.4  # For AMD/Intel GPU support
+pyperclip>=1.8.2  # For clipboard skill

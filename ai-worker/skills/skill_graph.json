@@ -1,0 +1,191 @@
+{
+    "version": "1.0",
+    "description": "Skill capability graph for dynamic routing and dependency resolution",
+    "skills": {
+        "clipboard": {
+            "name": "Clipboard Operations",
+            "description": "Copy and paste text to/from clipboard",
+            "capabilities": [
+                "copy_text",
+                "paste_text"
+            ],
+            "required_permissions": [
+                "clipboard_access"
+            ],
+            "platform_support": [
+                "windows",
+                "linux",
+                "darwin"
+            ],
+            "ram_required_mb": 50,
+            "dependencies": [],
+            "keywords": [
+                "copy",
+                "paste",
+                "clipboard"
+            ],
+            "examples": [
+                "copy this text",
+                "paste from clipboard",
+                "copy hello world"
+            ]
+        },
+        "browser": {
+            "name": "Browser Control",
+            "description": "Open URLs and perform web searches",
+            "capabilities": [
+                "open_url",
+                "web_search"
+            ],
+            "required_permissions": [
+                "network_access"
+            ],
+            "platform_support": [
+                "windows",
+                "linux",
+                "darwin"
+            ],
+            "ram_required_mb": 50,
+            "dependencies": [],
+            "keywords": [
+                "open",
+                "search",
+                "browse",
+                "url",
+                "website",
+                "google",
+                "youtube"
+            ],
+            "examples": [
+                "open google.com",
+                "search for Python tutorials",
+                "browse to example.com"
+            ]
+        },
+        "file": {
+            "name": "File Operations",
+            "description": "Read, write, and list files",
+            "capabilities": [
+                "read_file",
+                "write_file",
+                "list_directory"
+            ],
+            "required_permissions": [
+                "file_system_access"
+            ],
+            "platform_support": [
+                "windows",
+                "linux",
+                "darwin"
+            ],
+            "ram_required_mb": 100,
+            "dependencies": [],
+            "keywords": [
+                "read",
+                "write",
+                "file",
+                "save",
+                "load",
+                "list",
+                "directory"
+            ],
+            "examples": [
+                "read file.txt",
+                "write to document.txt",
+                "list files in directory"
+            ]
+        },
+        "scheduling": {
+            "name": "Scheduling & Reminders",
+            "description": "Create and manage reminders",
+            "capabilities": [
+                "create_reminder",
+                "list_reminders",
+                "delete_reminder",
+                "complete_reminder"
+            ],
+            "required_permissions": [
+                "data_storage"
+            ],
+            "platform_support": [
+                "windows",
+                "linux",
+                "darwin"
+            ],
+            "ram_required_mb": 50,
+            "dependencies": [],
+            "keywords": [
+                "remind",
+                "reminder",
+                "schedule",
+                "calendar",
+                "todo"
+            ],
+            "examples": [
+                "remind me to call John at 3pm",
+                "create reminder for meeting",
+                "list my reminders"
+            ]
+        },
+        "notes": {
+            "name": "Quick Notes",
+            "description": "Create and search quick notes",
+            "capabilities": [
+                "create_note",
+                "list_notes",
+                "search_notes",
+                "delete_note"
+            ],
+            "required_permissions": [
+                "data_storage"
+            ],
+            "platform_support": [
+                "windows",
+                "linux",
+                "darwin"
+            ],
+            "ram_required_mb": 50,
+            "dependencies": [],
+            "keywords": [
+                "note",
+                "notes",
+                "write down",
+                "remember",
+                "jot"
+            ],
+            "examples": [
+                "take a note about the meeting",
+                "search notes for project",
+                "list all notes"
+            ]
+        }
+    },
+    "routing_rules": {
+        "priority_order": [
+            "exact_keyword_match",
+            "capability_match",
+            "semantic_similarity",
+            "fallback_to_llm"
+        ],
+        "conflict_resolution": "prefer_most_specific",
+        "multi_skill_execution": "sequential"
+    },
+    "permissions": {
+        "clipboard_access": {
+            "description": "Access system clipboard",
+            "risk_level": "low"
+        },
+        "network_access": {
+            "description": "Access network and open URLs",
+            "risk_level": "medium"
+        },
+        "file_system_access": {
+            "description": "Read and write files",
+            "risk_level": "high"
+        },
+        "data_storage": {
+            "description": "Store persistent data",
+            "risk_level": "low"
+        }
+    }
+}

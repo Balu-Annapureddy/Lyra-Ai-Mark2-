@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Data
+ai-worker/data/
+*.db
+*.sqlite
+
+# Models (too large for git)
+ai-worker/models/*.gguf
+ai-worker/models/vosk-*/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Tauri
+ui/src-tauri/target/
+ui/dist/
+
+# Environment
+.env
+.env.local
