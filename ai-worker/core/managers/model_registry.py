@@ -6,8 +6,11 @@ Manages model catalog with RAM-based filtering and compatibility checking
 import logging
 import psutil
 from pathlib import Path
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Callable
 from dataclasses import dataclass, asdict
+import threading
+import time
+import copy
 
 from core.managers.config_manager import ConfigManager
 from error.error_handler import ErrorHandler, LyraError
@@ -294,6 +297,96 @@ class ModelRegistry:
             "models_compatible": len(self.get_available_models()),
             "available_ram_gb": round(self._available_ram_gb, 2),
         }
+
+    # Phase 3: Atomic Swap & Warmup Extensions
+    
+    def load_model_atomic(self, model_id: str) -> Any:
+        """
+        Atomically load and swap a model with warmup
+        
+        Args:
+            model_id: Model ID to load
+            
+        Returns:
+            Loaded model object
+        """
+        logger.info(f"Starting atomic load for {model_id}")
+        
+        # 1. Check compatibility
+        info = self.check_model_compatibility_or_raise(model_id)
+        
+        # 2. Load to temporary namespace (Placeholder for actual weight loading)
+        try:
+            temp_model = self._load_weights(info)
+        except Exception as e:
+            logger.error(f"Failed to load weights for {model_id}: {e}")
+            raise LyraError(ErrorCode.MODEL_REGISTRY_LOAD_FAIL, f"Weight load failed: {e}")
+            
+        # 3. Safe Warmup
+        if not self._safe_warmup(temp_model, info):
+            logger.warning(f"Warmup failed for {model_id}, aborting swap")
+            raise LyraError(ErrorCode.MODEL_REGISTRY_LOAD_FAIL, "Warmup failed")
+            
+        # 4. Atomic Swap
+        self._swap_active_model(model_id, temp_model)
+        
+        return temp_model
+
+    def _load_weights(self, info: ModelInfo) -> Any:
+        """
+        Load model weights (Placeholder)
+        
+        Args:
+            info: Model info
+            
+        Returns:
+            Model object
+        """
+        # In a real implementation, this would use torch/transformers/llama-cpp
+        logger.info(f"Loading weights for {info.id}...")
+        time.sleep(0.5) # Simulate load time
+        return {"id": info.id, "weights": "loaded", "loaded_at": time.time()}
+
+    def _safe_warmup(self, model: Any, info: ModelInfo) -> bool:
+        """
+        Perform safe warmup with resource checks
+        
+        Args:
+            model: Model object
+            info: Model info
+            
+        Returns:
+            True if warmup succeeded
+        """
+        logger.info(f"Warming up {info.id}...")
+        
+        # Check resources before warmup
+        mem = psutil.virtual_memory()
+        if mem.percent > 90:
+            logger.warning("Insufficient RAM for warmup, skipping")
+            return False
+            
+        try:
+            # Simulate warmup inference
+            # In real impl: model.generate("Hello", max_tokens=1)
+            time.sleep(0.2)
+            return True
+        except Exception as e:
+            logger.error(f"Warmup exception: {e}")
+            return False
+
+    def _swap_active_model(self, model_id: str, model_obj: Any):
+        """
+        Atomically swap the active model
+        
+        Args:
+            model_id: New model ID
+            model_obj: New model object
+        """
+        # This would update a global router or state
+        # For now, we'll just log it as we don't have the router component yet
+        logger.info(f"Atomically swapped to model {model_id}")
+        # self.active_model = model_obj
 
 
 # Singleton instance management
