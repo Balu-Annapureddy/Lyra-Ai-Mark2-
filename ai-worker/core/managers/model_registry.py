@@ -28,6 +28,16 @@ class ModelInfo:
     local_path: str
     enabled: bool
     description: str = ""
+    # Extended fields (Phase 1 enhancements)
+    quantization: str = ""  # e.g., "Q4_K_M", "Q5_K_S", "fp16"
+    architecture: str = ""  # e.g., "llama", "gpt", "whisper"
+    provider: str = "local"  # "local", "openai", "google", "anthropic"
+    tags: List[str] = None  # e.g., ["fast", "low-memory", "multilingual"]
+    
+    def __post_init__(self):
+        """Initialize default values"""
+        if self.tags is None:
+            self.tags = []
     
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary"""

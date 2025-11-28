@@ -1,0 +1,10 @@
+{
+  "config_version": "1.0",
+  "microphone": false,
+  "camera": false,
+  "clipboard_read": false,
+  "clipboard_write": false,
+  "web_browse": false,
+  "file_read": false,
+  "file_write": false
+}

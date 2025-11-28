@@ -1,303 +1,165 @@
-# 🌙 Lyra AI Mark2
+# Lyra AI Mark2
 
-**Lightweight offline + cloud hybrid AI desktop assistant**
+Advanced AI assistant with local-first architecture, configurable performance modes, and comprehensive permission system.
 
-Lyra is a cross-platform AI assistant that runs on Windows, macOS, and Linux with support for:
-- 💬 Text chat interface
-- 🎙️ Real-time voice interaction (STT → LLM → TTS)
-- 👁️ Vision features (OCR + object detection)
-- 📝 Reminders and system tools
-- 🔄 Intelligent model routing (offline/hybrid/cloud)
-- ⚡ Extremely low resource usage
+## Features
 
-## 🏗️ Architecture
+- 🧠 **Local-First AI**: Run models locally for privacy and offline capability
+- 🔐 **Permission System**: Fine-grained RBAC for sensitive operations
+- 📊 **Model Registry**: RAM-aware model management with compatibility checking
+- 💾 **Memory Watchdog**: Automatic RAM monitoring and protection
+- ⚡ **Performance Modes**: Configurable modes for different system capabilities
+- 🔄 **Event System**: Real-time notifications for permission and system changes
+- 📝 **Structured Logging**: JSON-formatted logs for easy analysis
+- 🏥 **Health Monitoring**: Comprehensive health checks for all components
 
-```
-Lyra-Mark2/
-├── ai-worker/          # Python FastAPI backend
-│   ├── app.py          # Main server
-│   ├── model_router.py # Intelligent model selection
-│   ├── stt.py          # Speech-to-text (Vosk)
-│   ├── tts.py          # Text-to-speech (pyttsx3)
-│   ├── vision.py       # OCR + object detection
-│   ├── tools/          # System tools
-│   │   ├── reminders.py
-│   │   ├── clipboard.py
-│   │   └── system_control.py
-│   ├── memory/         # Vector memory
-│   │   └── vector_store.py
-│   └── models/         # GGUF models (not included)
-└── ui/                 # Tauri + React frontend
-    ├── src/
-    │   ├── App.tsx
-    │   ├── components/
-    │   └── hooks/
-    └── src-tauri/      # Tauri Rust backend
-```
-
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-**Backend:**
-- Python 3.9+
-- Tesseract OCR (optional, for vision features)
+- Python 3.10+
+- 4GB+ RAM (8GB+ recommended)
+- Windows/Linux/macOS
 
-**Frontend:**
-- Node.js 18+
-- Rust 1.70+ (for Tauri)
-
-### 1. Backend Setup
+### Installation
 
 ```bash
-# Navigate to backend directory
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/Lyra-Mark2.git
+cd Lyra-Mark2
+
+# Set up virtual environment
 cd ai-worker
+python -m venv venv
+
+# Activate virtual environment
+# Windows:
+.\venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
+```
 
-# Start the server
+### Running the Backend
+
+```bash
+# From ai-worker directory with venv activated
 python app.py
 ```
 
 The backend will start on `http://localhost:8000`
 
-Visit `http://localhost:8000/docs` for API documentation
+## Architecture
 
-### 2. Frontend Setup
+### Phase 0: Foundation ✅
+- Configuration versioning & migration
+- Dependency injection container
+- Unified error system
+- Fail-safe recovery boot
 
-```bash
-# Navigate to frontend directory
-cd ui
+### Phase 1: Configuration & Core Systems ✅
+- Configurable memory watchdog
+- Permission manager (RBAC)
+- Model registry with RAM filtering
+- **Enhancements:**
+  - Config validation with defaults
+  - Permission event system
+  - Extended model metadata
+  - Registry caching
+  - Structured logging
+  - Dry-run mode
+  - Backup/restore
+  - Health check aggregation
 
-# Install dependencies
-npm install
+### Phase 2: Performance & Stability (In Progress)
+- Performance modes (Safe/Balanced)
+- Backend stability improvements
+- Manager health checks
+- Crash recovery system
 
-# Run in development mode
-npm run tauri:dev
+## Configuration
 
-# Or build for production
-npm run tauri:build
-```
+All configuration files are in `ai-worker/config/`:
 
-## 🤖 Model Configuration
+- `memory_watchdog.yaml` - RAM monitoring settings
+- `model_registry.yaml` - Available models catalog
+- `permissions.json` - User permissions
+- `performance_modes.yaml` - Performance profiles
 
-### Model Modes
-
-Lyra supports four model modes:
-
-1. **Offline Mini** (Default)
-   - Uses lightweight local models (1-3B parameters)
-   - RAM requirement: 4-8 GB
-   - Best for: Low-end systems, privacy-focused users
-
-2. **Offline Big**
-   - Uses larger local models (7-13B parameters)
-   - RAM requirement: 16-32 GB
-   - Best for: High-end systems, maximum quality
-
-3. **Hybrid** (Recommended)
-   - Tries local models first, falls back to cloud
-   - Balances privacy, cost, and quality
-   - Best for: Most users
-
-4. **Cloud Only**
-   - Always uses cloud APIs (Gemini/OpenAI)
-   - Requires API keys and internet
-   - Best for: Maximum quality, no local resources
-
-### Installing Local Models
-
-1. Download GGUF models from [Hugging Face](https://huggingface.co/models?library=gguf)
-
-**Recommended models:**
-- **Mini:** [TinyLlama-1.1B](https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF)
-- **Big:** [Mistral-7B](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF)
-
-2. Place models in `ai-worker/models/`
-
-```
-ai-worker/models/
-├── tinyllama-1.1b.gguf    # Mini model
-└── mistral-7b.gguf        # Big model
-```
-
-3. Restart the backend
-
-The model router will automatically detect and use available models.
-
-### Cloud API Setup (Optional)
-
-To use cloud mode, set environment variables:
+## Testing
 
 ```bash
-# For Gemini
-export GOOGLE_API_KEY="your-api-key"
+# Run Phase 0 tests
+python test_phase0.py
 
-# For OpenAI
-export OPENAI_API_KEY="your-api-key"
+# Run Phase 1 tests
+python test_phase1.py
+
+# Run Phase 1 enhancement tests
+python test_phase1_enhancements.py
 ```
 
-## 📡 API Endpoints
+## Project Structure
 
-### REST Endpoints
-
-- `GET /` - Health check
-- `GET /health` - Detailed health status
-- `POST /stt` - Speech-to-text
-- `POST /tts` - Text-to-speech
-- `POST /vision/frame` - Analyze image frame
-- `POST /llm/query` - Query LLM
-
-### WebSocket
-
-- `WS /realtime` - Real-time voice interaction
-
-## 🎨 Features
-
-### Chat Interface
-- ChatGPT-style conversation
-- Message history
-- Typing indicators
-- Auto-scroll
-
-### Realtime Voice
-- Push-to-talk interaction
-- Live transcription
-- Audio playback
-- Waveform visualization
-
-### Vision
-- OCR text extraction (pytesseract)
-- Object detection (ready for YOLOv8)
-- Face detection (OpenCV)
-
-### Tools
-- Reminders with JSON persistence
-- Clipboard operations
-- System control (open apps, URLs)
-
-### Memory
-- Vector-based semantic memory
-- FAISS + sentence-transformers
-- Context-aware responses
-
-## 🔧 Development
-
-### Backend Development
-
-```bash
-cd ai-worker
-
-# Install dev dependencies
-pip install -r requirements.txt
-
-# Run with auto-reload
-python app.py
+```
+Lyra-Mark2/
+├── ai-worker/              # Backend application
+│   ├── api/                # API routes
+│   ├── config/             # Configuration files
+│   ├── core/               # Core managers and systems
+│   │   ├── managers/       # Manager classes
+│   │   ├── events.py       # Event bus
+│   │   ├── container.py    # DI container
+│   │   └── ...
+│   ├── error/              # Error handling
+│   ├── skills/             # AI skills/capabilities
+│   ├── tools/              # Tool implementations
+│   └── app.py              # Main application
+├── ui/                     # Frontend (Tauri + React)
+└── README.md
 ```
 
-### Frontend Development
+## API Endpoints
 
-```bash
-cd ui
+- `GET /health` - Basic health check
+- `GET /health/core` - Detailed component health
+- `GET /models` - List available models
+- `GET /permissions` - Get permission status
+- `POST /permissions/{name}/grant` - Grant permission
+- `POST /permissions/{name}/revoke` - Revoke permission
 
-# Run dev server
-npm run dev
+## Development
 
-# Run Tauri dev mode
-npm run tauri:dev
+### Code Style
 
-# Type checking
-npm run tsc
-```
+- Python: PEP 8
+- Structured logging for all components
+- Type hints for all functions
+- Comprehensive docstrings
 
-## 🐛 Troubleshooting
+### Contributing
 
-### Backend Issues
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests
+5. Submit a pull request
 
-**Vosk not working:**
-- Download Vosk model from https://alphacephei.com/vosk/models
-- Extract to `ai-worker/models/vosk-model-small-en-us/`
-
-**Tesseract not found:**
-- Windows: Download from https://github.com/UB-Mannheim/tesseract/wiki
-- macOS: `brew install tesseract`
-- Linux: `sudo apt-get install tesseract-ocr`
-
-**pyttsx3 not working:**
-- Windows: Should work out of the box
-- macOS: `brew install espeak`
-- Linux: `sudo apt-get install espeak`
-
-### Frontend Issues
-
-**Tauri build fails:**
-- Ensure Rust is installed: https://rustup.rs/
-- Update Rust: `rustup update`
-
-**WebSocket connection fails:**
-- Ensure backend is running on port 8000
-- Check firewall settings
-
-## 📦 Building for Production
-
-### Backend
-
-```bash
-cd ai-worker
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run
-python app.py
-```
-
-### Frontend
-
-```bash
-cd ui
-
-# Build Tauri app
-npm run tauri:build
-```
-
-Installers will be in `ui/src-tauri/target/release/bundle/`
-
-## 🔒 Privacy & Security
-
-- **Offline by default:** All processing happens locally
-- **No telemetry:** Zero data collection
-- **Cloud optional:** You control when to use cloud APIs
-- **Open source:** Fully auditable code
-
-## 🛣️ Roadmap
-
-- [ ] Mobile apps (Android, iOS)
-- [ ] Plugin system
-- [ ] Custom wake word
-- [ ] Screen sharing analysis
-- [ ] Multi-language support
-- [ ] Voice cloning
-- [ ] Advanced automation
-
-## 📄 License
+## License
 
 MIT License - See LICENSE file for details
 
-## 🤝 Contributing
+## Acknowledgments
 
-Contributions welcome! Please read CONTRIBUTING.md first.
+Built with:
+- FastAPI - Web framework
+- Pydantic - Data validation
+- psutil - System monitoring
+- Vosk - Speech-to-text
+- OpenCV - Computer vision
 
-## 💬 Support
+## Support
 
-- GitHub Issues: Report bugs and request features
-- Discussions: Ask questions and share ideas
-
----
-
-**Built with ❤️ for privacy-conscious AI enthusiasts**
+For issues and questions, please open an issue on GitHub.
