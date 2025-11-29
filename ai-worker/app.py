@@ -181,6 +181,10 @@ app.add_middleware(
 app.include_router(health_router)
 app.include_router(health_checks_router)
 
+# Import and include status router
+from api.status import router as status_router
+app.include_router(status_router)
+
 
 @app.get("/")
 async def root():
