@@ -1,6 +1,3 @@
-[build]
-ignore = ["junk", "ai-worker/models", "ai-worker/cache", ".pytest_cache", "__pycache__", "venv", ".venv", "tests", "*.pth", "*.bin", "*.pt", "*.onnx", "*.gguf", "*.safetensors", "data"]
-
 [phases.setup]
 nixPkgs = ["python312", "gcc"]
 
@@ -13,7 +10,7 @@ cmds = [
 
 [phases.build]
 cmds = [
-  "echo 'Build phase skipped for lightweight Railway deploy'"
+  "echo 'Skipping heavy build step for Railway'"
 ]
 
 [start]
