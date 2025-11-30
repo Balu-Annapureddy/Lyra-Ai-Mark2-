@@ -1,48 +1,118 @@
+# Lyra AI Mark2 - Comprehensive .gitignore
+
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-venv/
-env/
-ENV/
-*.egg-info/
-dist/
 build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
-# Data
-ai-worker/data/
-*.db
-*.sqlite
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
 
-# Models (too large for git)
-ai-worker/models/*.gguf
-ai-worker/models/vosk-*/
+# PyTest
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
 
-# Logs
-*.log
-
-# IDE
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
+.DS_Store
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Cache and State
+cache/
+ai-worker/cache/
+ai-worker/state/
+ai-worker/config/
+*.pid
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+ai-worker/ai-worker/
+
+# Models (large files)
+models/
+*.bin
+*.gguf
+*.safetensors
+*.pt
+*.pth
+
+# Environment variables
+.env
+.env.local
+.env.*.local
 
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Node
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Backup files
+*.bak
+*.backup
+*_backup
+*_old
+junk/
 
-# Tauri
-ui/src-tauri/target/
+# Config snapshots (keep in version control for reference)
+# config_snapshot_phase1/
+
+# Test artifacts
+test_results/
+.tox/
+
+# Documentation builds
+docs/_build/
+site/
+
+# Memory dumps
+memory/
+
+# Frontend build artifacts (if applicable)
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.next/
+ui/node_modules/
 ui/dist/
+ui/build/
 
-# Environment
-.env
-.env.local
+# Package manager
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

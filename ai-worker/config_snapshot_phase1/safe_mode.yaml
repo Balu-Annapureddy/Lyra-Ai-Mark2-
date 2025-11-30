@@ -1,9 +1,0 @@
-config_version: '1.0'
-mode: safe
-features:
-- text_chat_only
-models: []
-permissions: all_denied
-recovery_mode: true
-failed_configs:
-- permissions.json

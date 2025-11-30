@@ -31,6 +31,9 @@ async def get_system_status() -> Dict[str, Any]:
     - Active tasks
     - Performance metrics
     - Session information
+    - Warnings and alerts
+    - Fallback/error counters
+    - Cache insights
     """
     
     state_mgr = get_state_manager()
@@ -110,6 +113,104 @@ async def get_system_status() -> Dict[str, Any]:
             "memory_limit_percent": 0
         }
     
+    # ===== NEW: Warnings Detection =====
+    warnings = []
+    
+    # High CPU warning
+    if cpu_percent > 85:
+        warnings.append(f"CPU usage above 85% ({cpu_percent:.1f}%)")
+    
+    # High RAM warning
+    if memory.percent > 85:
+        warnings.append(f"RAM usage above 85% ({memory.percent:.1f}%)")
+    
+    # Cache capacity warning
+    try:
+        from core.managers.cache_manager import get_cache_manager
+        cache_mgr = get_cache_manager()
+        cache_usage = cache_mgr.get_current_usage()
+        cache_max = cache_mgr.max_cache_bytes
+        cache_percent = (cache_usage / cache_max * 100) if cache_max > 0 else 0
+        
+        if cache_percent > 90:
+            warnings.append(f"Cache at {cache_percent:.1f}% capacity")
+    except:
+        cache_percent = 0
+        cache_usage = 0
+        cache_max = 0
+    
+    # Slow task detection
+    slow_task_count = 0
+    try:
+        # Check recent metrics for slow tasks (>5s execution time)
+        for metric in recent_metrics[-100:]:  # Last 100 metrics
+            if metric.get("name") == "task_duration" and metric.get("value", 0) > 5.0:
+                slow_task_count += 1
+        
+        if slow_task_count > 0:
+            warnings.append(f"Slow tasks detected: {slow_task_count}")
+    except:
+        pass
+    
+    # Memory watchdog warnings
+    if watchdog_stats.get("soft_limit_active"):
+        warnings.append("Memory soft limit active")
+    if watchdog_stats.get("hard_limit_active"):
+        warnings.append("Memory HARD limit active - emergency cleanup")
+    
+    # ===== NEW: Fallback / Error Counters =====
+    fallbacks = {
+        "model_failover": int(metrics_mgr.get_counter_value("model_failover")),
+        "cache_evictions": int(metrics_mgr.get_counter_value("cache_eviction")),
+        "job_retries": int(metrics_mgr.get_counter_value("job_retry")),
+        "websocket_disconnects": int(metrics_mgr.get_counter_value("websocket_disconnect"))
+    }
+    
+    # ===== NEW: Cache Insights =====
+    try:
+        from core.managers.cache_manager import get_cache_manager
+        cache_mgr = get_cache_manager()
+        
+        # Get cache items
+        cache_items = cache_mgr._items if hasattr(cache_mgr, '_items') else {}
+        
+        # Find largest model
+        largest_model = "None"
+        largest_size = 0
+        for path_str, item in cache_items.items():
+            if item.size_bytes > largest_size:
+                largest_size = item.size_bytes
+                largest_model = item.path.name if hasattr(item.path, 'name') else str(item.path)
+        
+        # Calculate hit/miss ratio (placeholder - would need actual tracking)
+        # For now, use a simple heuristic based on cache evictions
+        total_accesses = metrics_mgr.get_counter_value("cache_access") or 100
+        cache_hits = total_accesses - fallbacks["cache_evictions"]
+        hit_ratio = (cache_hits / total_accesses) if total_accesses > 0 else 0.0
+        
+        cache_insights = {
+            "size_mb": round(cache_usage / (1024**2), 2),
+            "capacity_mb": round(cache_max / (1024**2), 2),
+            "usage_percent": round(cache_percent, 1),
+            "evictions": fallbacks["cache_evictions"],
+            "largest_model": largest_model,
+            "largest_model_mb": round(largest_size / (1024**2), 2),
+            "hit_ratio": round(hit_ratio, 2),
+            "total_items": len(cache_items)
+        }
+    except Exception as e:
+        cache_insights = {
+            "size_mb": 0,
+            "capacity_mb": 0,
+            "usage_percent": 0,
+            "evictions": 0,
+            "largest_model": "Unknown",
+            "largest_model_mb": 0,
+            "hit_ratio": 0.0,
+            "total_items": 0,
+            "error": str(e)
+        }
+    
     return {
         "status": "running",
         "timestamp": datetime.utcnow().isoformat() + "Z",
@@ -166,8 +267,20 @@ async def get_system_status() -> Dict[str, Any]:
         "metrics_summary": {
             "total_recorded": len(recent_metrics),
             "stats": metrics_stats
-        }
+        },
+        
+        # ===== NEW SECTIONS =====
+        
+        # Warnings and alerts
+        "warnings": warnings,
+        
+        # Fallback and error counters
+        "fallbacks": fallbacks,
+        
+        # Cache insights
+        "cache": cache_insights
     }
+
 
 
 @router.get("/health")

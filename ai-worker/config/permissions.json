@@ -6,5 +6,5 @@
   "clipboard_write": false,
   "web_browse": false,
   "file_read": false,
-  "file_write": false
+  "file_write": true
 }

@@ -238,3 +238,31 @@ class ConfigManager:
         """Clear all cached configurations"""
         self.config_cache.clear()
         logger.info("Configuration cache cleared")
+
+
+# Global config manager instance
+_config_manager: Optional[ConfigManager] = None
+
+
+def get_config_manager(config_dir: Optional[Path] = None) -> ConfigManager:
+    """
+    Get or create the global config manager
+    
+    Args:
+        config_dir: Directory containing config files (required for first call)
+        
+    Returns:
+        ConfigManager instance
+    """
+    global _config_manager
+    
+    if _config_manager is None:
+        if config_dir is None:
+            # Default to 'config' directory in current working directory
+            config_dir = Path("config")
+            if not config_dir.exists():
+                config_dir.mkdir(parents=True, exist_ok=True)
+        
+        _config_manager = ConfigManager(config_dir)
+    
+    return _config_manager
