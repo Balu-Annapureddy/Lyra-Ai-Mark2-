@@ -27,7 +27,7 @@ pyperclip==1.8.2
 
 # Vector Memory
 sentence-transformers==2.2.2
-faiss-cpu==1.7.4
+faiss-cpu==1.8.0
 
 # Utilities
 numpy==1.24.3
