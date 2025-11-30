@@ -1,0 +1,5 @@
+# Lyra AI Mark2 - Root Requirements
+# This file allows Railway to detect the project as Python
+# Actual dependencies are in ai-worker/requirements.txt
+
+-r ai-worker/requirements.txt
