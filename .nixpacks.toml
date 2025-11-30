@@ -1,5 +1,5 @@
 [build]
-ignore = ["junk", "ai-worker/models", "ai-worker/cache", ".pytest_cache", "__pycache__", "venv", ".venv", "tests"]
+ignore = ["junk", "ai-worker/models", "ai-worker/cache", ".pytest_cache", "__pycache__", "venv", ".venv", "tests", "*.pth", "*.bin", "*.pt", "*.onnx", "*.gguf", "*.safetensors", "data"]
 
 [phases.setup]
 nixPkgs = ["python312", "gcc"]
