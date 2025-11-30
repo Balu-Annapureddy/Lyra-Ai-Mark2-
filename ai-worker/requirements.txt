@@ -28,9 +28,10 @@ pyperclip==1.8.2
 # Vector Memory
 sentence-transformers==2.2.2
 faiss-cpu==1.8.0
+numpy==1.26.4
 
 # Utilities
-numpy==1.24.3
+
 python-dotenv==1.0.0
 
 # Optional: Local LLM support (uncomment if needed)
