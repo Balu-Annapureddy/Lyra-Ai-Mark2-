@@ -1,0 +1,28 @@
+# Ignore ALL heavy AI files
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+*.gguf
+
+# Ignore model folders
+models/
+checkpoints/
+weights/
+data/
+datasets/
+ai-worker/models/
+ai-worker/cache/
+
+# Ignore local development files
+.vscode/
+__pycache__/
+*.log
+*.mp4
+*.wav
+*.jpg
+*.png
+tmp/
+cache/
+junk/
