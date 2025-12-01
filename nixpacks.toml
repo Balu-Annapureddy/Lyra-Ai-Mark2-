@@ -1,0 +1,22 @@
+# nixpacks.toml — Force lightweight install for Railway
+
+# Disable all auto-detection
+[build]
+builder = "nixpacks"
+auto_detection = false
+
+# Install phase override
+[phases.install]
+commands = [
+  "python -m venv /opt/venv",
+  "/opt/venv/bin/pip install --upgrade pip wheel setuptools",
+  "/opt/venv/bin/pip install -r ai-worker/requirements-railway.txt"
+]
+
+# Build phase override (empty = skip heavy build)
+[phases.build]
+commands = []
+
+# Start command override (Railway uses this at runtime)
+[start]
+cmd = "cd ai-worker && gunicorn -c gunicorn_railway.py app_lite:app"
