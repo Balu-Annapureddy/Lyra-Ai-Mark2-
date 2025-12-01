@@ -20,18 +20,12 @@ app.add_middleware(
 )
 
 @app.get("/")
-async def root():
-    """Health check endpoint"""
-    return {
-        "status": "online",
-        "mode": "lite",
-        "message": "Lyra AI Worker Lite running on Railway! Heavy AI models are disabled in this mode."
-    }
+def home():
+    return {"message": "Lyra AI worker running successfully"}
 
 @app.get("/health")
-async def health():
-    """Simple health check"""
-    return {"status": "healthy"}
+def health():
+    return {"status": "ok"}
 
 @app.get("/status")
 async def status():
