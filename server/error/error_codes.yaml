@@ -1,0 +1,153 @@
+config_version: "1.0"
+
+# Error code definitions for Lyra AI Mark2
+# Format: CODE_NAME: {message, severity, http_status}
+
+# Model-related errors
+MODEL_LOAD_FAIL:
+  message: "Model failed to load"
+  severity: "error"
+  http_status: 500
+
+MODEL_NOT_FOUND:
+  message: "Requested model not found"
+  severity: "error"
+  http_status: 404
+
+MODEL_DOWNLOAD_FAIL:
+  message: "Model download failed"
+  severity: "error"
+  http_status: 500
+
+MODEL_INCOMPATIBLE:
+  message: "Model incompatible with current system"
+  severity: "warning"
+  http_status: 400
+
+MODEL_NOT_COMPATIBLE:
+  message: "Model not compatible with current system RAM"
+  severity: "warning"
+  http_status: 400
+
+MODEL_REGISTRY_LOAD_FAIL:
+  message: "Failed to load model registry"
+  severity: "error"
+  http_status: 500
+
+# Permission errors
+PERMISSION_DENIED:
+  message: "Permission denied for this operation"
+  severity: "warning"
+  http_status: 403
+
+PERMISSION_NOT_GRANTED:
+  message: "User has not granted this permission"
+  severity: "warning"
+  http_status: 403
+
+# Resource errors
+LOW_RAM:
+  message: "Insufficient RAM available"
+  severity: "critical"
+  http_status: 507
+
+LOW_DISK_SPACE:
+  message: "Insufficient disk space"
+  severity: "critical"
+  http_status: 507
+
+GPU_NOT_AVAILABLE:
+  message: "GPU not available or failed"
+  severity: "warning"
+  http_status: 503
+
+# Network errors
+NETWORK_FAIL:
+  message: "Network request failed"
+  severity: "error"
+  http_status: 503
+
+DOWNLOAD_TIMEOUT:
+  message: "Download operation timed out"
+  severity: "error"
+  http_status: 504
+
+# System errors
+WATCHDOG_TIMEOUT:
+  message: "Worker thread timeout detected"
+  severity: "critical"
+  http_status: 500
+
+WORKER_CRASH:
+  message: "Worker process crashed"
+  severity: "critical"
+  http_status: 500
+
+CONFIG_LOAD_FAIL:
+  message: "Configuration file failed to load"
+  severity: "error"
+  http_status: 500
+
+CONFIG_INVALID:
+  message: "Configuration file is invalid"
+  severity: "error"
+  http_status: 500
+
+# Input validation errors
+INVALID_INPUT:
+  message: "Invalid input provided"
+  severity: "warning"
+  http_status: 400
+
+MISSING_PARAMETER:
+  message: "Required parameter missing"
+  severity: "warning"
+  http_status: 400
+
+# Plugin errors
+PLUGIN_LOAD_FAIL:
+  message: "Plugin failed to load"
+  severity: "error"
+  http_status: 500
+
+PLUGIN_NOT_FOUND:
+  message: "Requested plugin not found"
+  severity: "error"
+  http_status: 404
+
+PLUGIN_DISABLED:
+  message: "Plugin is disabled"
+  severity: "warning"
+  http_status: 403
+
+# Voice pipeline errors
+STT_FAIL:
+  message: "Speech-to-text processing failed"
+  severity: "error"
+  http_status: 500
+
+TTS_FAIL:
+  message: "Text-to-speech generation failed"
+  severity: "error"
+  http_status: 500
+
+AUDIO_PROCESSING_FAIL:
+  message: "Audio processing failed"
+  severity: "error"
+  http_status: 500
+
+# General errors
+UNKNOWN_ERROR:
+  message: "An unknown error occurred"
+  severity: "error"
+  http_status: 500
+
+OPERATION_TIMEOUT:
+  message: "Operation timed out"
+  severity: "error"
+  http_status: 504
+
+SERVICE_UNAVAILABLE:
+  message: "Service temporarily unavailable"
+  severity: "warning"
+  http_status: 503

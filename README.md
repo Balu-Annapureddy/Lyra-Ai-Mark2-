@@ -29,7 +29,7 @@ git clone https://github.com/Balu-Annapureddy/Lyra-Ai-Mark2-.git
 cd Lyra-Mark2
 
 # Set up virtual environment
-cd ai-worker
+cd server
 python -m venv venv
 
 # Activate virtual environment
@@ -45,7 +45,7 @@ pip install -r requirements.txt
 ### Running the Backend
 
 ```bash
-# From ai-worker directory with venv activated
+# From server directory with venv activated
 python app.py
 ```
 
@@ -131,7 +131,7 @@ python test_integration.py
 
 ```
 Lyra-Mark2/
-├── ai-worker/              # Backend application
+├── server/                 # Backend application (Render deployment)
 │   ├── api/                # API routes
 │   ├── config/             # Configuration files
 │   ├── core/               # Core managers and systems
@@ -142,8 +142,11 @@ Lyra-Mark2/
 │   ├── error/              # Error handling
 │   ├── skills/             # AI skills/capabilities
 │   ├── tools/              # Tool implementations
-│   └── app.py              # Main application
+│   ├── app.py              # Main application
+│   ├── requirements.txt    # Python dependencies
+│   └── runtime.txt         # Python 3.10.13
 ├── ui/                     # Frontend (Tauri + React)
+├── render.yaml             # Render deployment config
 └── README.md
 ```
 

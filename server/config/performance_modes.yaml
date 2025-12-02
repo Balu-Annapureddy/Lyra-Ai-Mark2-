@@ -1,0 +1,59 @@
+config_version: "1.0"
+
+# Lyra AI Mark2 - Performance Modes Configuration
+
+# Low Power Mode (DEFAULT for 8GB RAM systems)
+low_power_mode:
+  enabled: true
+  
+  # Models
+  llm_model: "phi-3-mini-1.8b"  # 2GB RAM
+  stt_model: "whisper-tiny"      # 1GB RAM
+  tts_engine: "pyttsx3"          # <100MB RAM
+  
+  # Features
+  vision_enabled: false          # Saves ~1.5GB RAM
+  realtime_enabled: true
+  natural_tts_enabled: false
+  
+  # Limits
+  max_context_tokens: 2048
+  max_concurrent_requests: 2
+  background_workers: false
+  
+  # Memory Management
+  auto_unload_timeout: 300       # 5 minutes
+  force_gc_interval: 60          # Force garbage collection every minute
+  
+  # Expected RAM Usage: ~3-4GB total
+
+# High Performance Mode (Requires 16GB+ RAM)
+high_performance_mode:
+  enabled: false
+  
+  # Models
+  llm_model: "mistral-7b"        # 8GB RAM
+  stt_model: "whisper-base"      # 1.5GB RAM
+  tts_engine: "coqui-xtts"       # 500MB RAM
+  
+  # Features
+  vision_enabled: true           # +1GB RAM
+  realtime_enabled: true
+  natural_tts_enabled: true
+  
+  # Limits
+  max_context_tokens: 8192
+  max_concurrent_requests: 5
+  background_workers: true
+  
+  # Memory Management
+  auto_unload_timeout: 600       # 10 minutes
+  force_gc_interval: 300         # Every 5 minutes
+  
+  # Expected RAM Usage: ~11-12GB total
+
+# Auto-Detection Settings
+auto_detect:
+  enabled: true                  # Automatically select mode based on RAM
+  min_ram_for_high_perf: 14.0    # GB required for high performance mode
+  safety_buffer_gb: 2.0          # Reserve for OS
