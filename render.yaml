@@ -7,7 +7,7 @@ services:
     startCommand: "cd ai-worker && uvicorn app:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: PYTHON_VERSION
-        value: 3.12.0
+        value: 3.10.13
       - key: PORT
         value: 10000
     healthCheckPath: /health

@@ -18,9 +18,9 @@ vosk==0.3.45
 pyttsx3==2.90
 
 # Vision Processing
-opencv-python==4.8.1.78
+opencv-python-headless==4.8.1.78
 pytesseract==0.3.10
-Pillow==10.1.0
+Pillow==10.2.0
 
 # Clipboard
 pyperclip==1.8.2
