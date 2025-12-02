@@ -1,11 +1,9 @@
 services:
   - type: web
-    name: lyra-ai-mark2
-    runtime: python
+    name: Lyra_Ai
     rootDir: server
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.10.13
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app:app --host 0.0.0.0 --port $PORT"
+    pythonVersion: 3.10.13
     healthCheckPath: /health
