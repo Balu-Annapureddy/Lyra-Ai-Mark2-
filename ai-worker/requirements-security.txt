@@ -1,3 +1,0 @@
-# Additional dependencies for security and secrets management
-keyring>=24.0.0  # OS keyring integration (Windows Credential Manager, macOS Keychain, Linux Secret Service)
-cryptography>=41.0.0  # Encryption for fallback secrets storage

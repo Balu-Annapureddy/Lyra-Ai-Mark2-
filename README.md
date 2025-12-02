@@ -25,7 +25,7 @@ Advanced AI assistant with local-first architecture, configurable performance mo
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/Lyra-Mark2.git
+git clone https://github.com/Balu-Annapureddy/Lyra-Ai-Mark2-.git
 cd Lyra-Mark2
 
 # Set up virtual environment
@@ -149,12 +149,16 @@ Lyra-Mark2/
 
 ## API Endpoints
 
+- `GET /` - Root endpoint with version info
+- `GET /docs` - Interactive API documentation (Swagger UI)
+- `GET /redoc` - Alternative API documentation (ReDoc)
 - `GET /health` - Basic health check
 - `GET /health/core` - Detailed component health
+- `GET /status` - Comprehensive system status
 - `GET /models` - List available models
 - `GET /permissions` - Get permission status
-- `POST /permissions/{name}/grant` - Grant permission
-- `POST /permissions/{name}/revoke` - Revoke permission
+- `POST /permissions/grant` - Grant permission
+- `POST /permissions/revoke` - Revoke permission
 
 ## Development
 

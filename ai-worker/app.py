@@ -171,13 +171,23 @@ app = FastAPI(
     title="Lyra AI Mark2",
     description="Lightweight AI Operating System",
     version="2.0.0",
+    docs_url="/docs",  # Swagger UI
+    redoc_url="/redoc",  # ReDoc
     lifespan=lifespan
 )
 
 # CORS middleware
+import os
+
+# Get allowed origins from environment or use defaults
+allowed_origins = os.getenv(
+    "ALLOWED_ORIGINS",
+    "http://localhost:3000,http://localhost:5173"
+).split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # Vite/React dev servers
+    allow_origins=allowed_origins,  # Production-ready CORS
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
