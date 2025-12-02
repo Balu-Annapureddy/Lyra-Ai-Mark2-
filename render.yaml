@@ -2,12 +2,9 @@ services:
   - type: web
     name: lyra-ai-mark2
     env: python
-    plan: starter
-    buildCommand: "cd ai-worker && pip install -r requirements.txt"
-    startCommand: "cd ai-worker && uvicorn app:app --host 0.0.0.0 --port $PORT"
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.10.13
-      - key: PORT
-        value: 10000
+    region: oregon
+    plan: free
+    runtime: python-3.10
+    buildCommand: cd ai-worker && pip install -r requirements.txt
+    startCommand: cd ai-worker && uvicorn app:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
