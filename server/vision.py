@@ -1,6 +1,6 @@
 """
 Vision Service
-OCR: pytesseract + OpenCV
+OCR: pytesseract + Pillow
 Object Detection: Placeholder (ready for YOLOv8 ONNX)
 """
 
@@ -111,20 +111,14 @@ class VisionService:
         
         try:
             import pytesseract
-            import cv2
             
-            # Convert PIL to OpenCV format
-            img_array = np.array(image)
+            # Preprocess image for better OCR using Pillow
+            # Convert to grayscale
+            gray = image.convert('L')
             
-            # Convert RGB to BGR if needed
-            if len(img_array.shape) == 3 and img_array.shape[2] == 3:
-                img_array = cv2.cvtColor(img_array, cv2.COLOR_RGB2BGR)
-            
-            # Preprocess image for better OCR
-            gray = cv2.cvtColor(img_array, cv2.COLOR_BGR2GRAY) if len(img_array.shape) == 3 else img_array
-            
-            # Apply thresholding
-            _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            # Apply simple thresholding (binarization)
+            # Threshold at 128
+            thresh = gray.point(lambda x: 0 if x < 128 else 255, '1')
             
             # Perform OCR
             text = pytesseract.image_to_string(thresh)
@@ -164,41 +158,10 @@ class VisionService:
     
     async def detect_faces(self, image_data: bytes) -> List[Dict]:
         """
-        Detect faces in image using OpenCV
+        Detect faces in image
+        
+        NOTE: OpenCV removed for Python 3.13 compatibility.
+        Face detection is currently disabled.
         """
-        try:
-            import cv2
-            
-            # Convert bytes to numpy array
-            nparr = np.frombuffer(image_data, np.uint8)
-            img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-            
-            # Load Haar Cascade for face detection
-            face_cascade = cv2.CascadeClassifier(
-                cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
-            )
-            
-            # Convert to grayscale
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            
-            # Detect faces
-            faces = face_cascade.detectMultiScale(
-                gray,
-                scaleFactor=1.1,
-                minNeighbors=5,
-                minSize=(30, 30)
-            )
-            
-            # Format results
-            face_list = []
-            for (x, y, w, h) in faces:
-                face_list.append({
-                    "bbox": [int(x), int(y), int(w), int(h)],
-                    "confidence": 0.9
-                })
-            
-            return face_list
-            
-        except Exception as e:
-            logger.error(f"Face detection error: {e}")
-            return []
+        logger.warning("Face detection disabled (OpenCV removed for Python 3.13 compatibility)")
+        return []

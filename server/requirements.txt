@@ -1,8 +1,7 @@
-fastapi
-uvicorn[standard]
-numpy==1.26.4
-pillow==10.2.0
-opencv-python-headless==4.8.1.78
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+numpy>=2.1.2
+pillow>=11.0.0
 python-multipart
 requests
-pydantic
+pydantic>=2.7.0
