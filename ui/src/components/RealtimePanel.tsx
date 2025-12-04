@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ModelMode } from "../App";
 import useWebSocket from "../hooks/useWebSocket";
+import { WS_BASE_URL } from "../config";
 
 interface RealtimePanelProps {
     mode: ModelMode;
@@ -25,7 +26,7 @@ export default function RealtimePanel({
 
     // WebSocket connection
     const { sendMessage, lastMessage, connectionStatus } = useWebSocket(
-        "ws://localhost:8000/realtime"
+        `${WS_BASE_URL}/realtime`
     );
 
     // Handle incoming WebSocket messages

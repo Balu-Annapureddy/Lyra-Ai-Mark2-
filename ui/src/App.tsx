@@ -3,6 +3,7 @@ import TopBar from "./components/TopBar";
 import ChatPanel from "./components/ChatPanel";
 import RealtimePanel from "./components/RealtimePanel";
 import SettingsPanel from "./components/SettingsPanel";
+import { API_BASE_URL } from "./config";
 
 export type ModelMode = "offline-mini" | "offline-big" | "hybrid" | "cloud";
 
@@ -32,7 +33,7 @@ function App() {
 
     const checkBackendConnection = async () => {
         try {
-            const response = await fetch("http://localhost:8000/health");
+            const response = await fetch(`${API_BASE_URL}/health`);
             if (response.ok) {
                 setAppState((prev) => ({ ...prev, isConnected: true }));
             }

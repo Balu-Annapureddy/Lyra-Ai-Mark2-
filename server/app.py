@@ -182,7 +182,7 @@ import os
 # Get allowed origins from environment or use defaults
 allowed_origins = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:3000,http://localhost:5173"
+    "*"
 ).split(",")
 
 app.add_middleware(

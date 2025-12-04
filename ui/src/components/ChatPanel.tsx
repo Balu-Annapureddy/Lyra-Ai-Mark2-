@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { ModelMode } from "../App";
+import { API_BASE_URL } from "../config";
 
 interface Message {
     id: number;
@@ -47,7 +48,7 @@ export default function ChatPanel({ mode, isConnected }: ChatPanelProps) {
 
         try {
             // Send to backend
-            const response = await fetch("http://localhost:8000/llm/query", {
+            const response = await fetch(`${API_BASE_URL}/llm/query`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
