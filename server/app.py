@@ -211,9 +211,30 @@ async def root():
         "name": "Lyra AI Mark2",
         "version": "2.0.0",
         "status": "running",
+        "message": "Lyra AI Backend is running",
         "session_id": state_mgr.get_session_id(),
         "session_duration": state_mgr.get_session_duration()
     }
+
+
+@app.get("/health")
+async def health_check_root():
+    """
+    Direct health check endpoint
+    Avoids 307 redirects from router prefixes
+    """
+    return {"status": "ok", "timestamp": "now"}
+
+
+@app.get("/favicon.ico")
+async def favicon():
+    """
+    Handle favicon requests to prevent 404s
+    """
+    # Return 204 No Content for now to keep logs clean
+    # Alternatively, serve a static file if available
+    from fastapi import Response
+    return Response(status_code=204)
 
 
 @app.post("/chat")
