@@ -8,3 +8,7 @@ pydantic>=2.7.0
 colorlog
 psutil
 pytesseract
+aiohttp
+tqdm
+PyYAML
+pyperclip
