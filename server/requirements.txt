@@ -5,3 +5,6 @@ pillow>=11.0.0
 python-multipart
 requests
 pydantic>=2.7.0
+colorlog
+psutil
+pytesseract
