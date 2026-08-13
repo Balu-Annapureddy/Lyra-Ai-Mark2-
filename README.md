@@ -1,198 +1,39 @@
-# Lyra AI Mark2
+# Lyra AI Mark 2 — Client-Server Predecessor
 
-Advanced AI assistant with local-first architecture, configurable performance modes, and comprehensive permission system.
+> **Status**: 🗄️ Archived Predecessor  
+> **Evolutionary Position**: Original Prototype (Lyra Mark 1) → Lyra Mark 2 (This Repository) → [Lyra Mark 3](https://github.com/Balu-Annapureddy/Lyra-AI-Mark3)  
+> **License**: MIT License  
 
-## Features
+---
 
-- 🧠 **Local-First AI**: Run models locally for privacy and offline capability
-- 🔐 **Permission System**: Fine-grained RBAC for sensitive operations
-- 📊 **Model Registry**: RAM-aware model management with compatibility checking
-- 💾 **Memory Watchdog**: Automatic RAM monitoring and protection
-- ⚡ **Performance Modes**: Configurable modes for different system capabilities
-- 🔄 **Event System**: Real-time notifications for permission and system changes
-- 📝 **Structured Logging**: JSON-formatted logs for easy analysis
-- 🏥 **Health Monitoring**: Comprehensive health checks for all components
+## Overview & Historical Lineage
 
-## Quick Start
-
-### Prerequisites
-
-- Python 3.10+
-- 4GB+ RAM (8GB+ recommended)
-- Windows/Linux/macOS
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/Balu-Annapureddy/Lyra-Ai-Mark2-.git
-cd Lyra-Mark2
-
-# Set up virtual environment
-cd server
-python -m venv venv
-
-# Activate virtual environment
-# Windows:
-.\venv\Scripts\activate
-# Linux/macOS:
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### Running the Backend
-
-```bash
-# From server directory with venv activated
-python app.py
-```
-
-The backend will start on `http://localhost:8000`
-
-## Architecture
-
-### Phase 0: Foundation ✅
-- Configuration versioning & migration
-- Dependency injection container
-- Unified error system
-- Fail-safe recovery boot
-
-### Phase 1: Configuration & Core Systems ✅
-- Configurable memory watchdog
-- Permission manager (RBAC)
-- Model registry with RAM filtering
-- **Enhancements:**
-  - Config validation with defaults
-  - Permission event system
-  - Extended model metadata
-  - Registry caching
-  - Structured logging
-  - Dry-run mode
-  - Backup/restore
-  - Health check aggregation
-
-### Phase 2: Performance & Stability ✅
-- Performance modes (Safe/Balanced)
-- Backend stability improvements
-- Manager health checks
-- Crash recovery system
-
-### Phase 3: Advanced Components ✅
-- Hardware detection and profiling
-- Metrics manager with telemetry
-- Cache manager with LRU eviction
-- Task queue with priority handling
-- Fallback manager with circuit breaker
-- Voice pipeline integration
-
-### Phase 4: Integration & Deployment (In Progress)
-- Integration testing
-- API endpoint verification
-- System status monitoring
-- Documentation and deployment prep
-
-## Configuration
-
-All configuration files are in `ai-worker/config/`:
-
-- `memory_watchdog.yaml` - RAM monitoring settings
-- `model_registry.yaml` - Available models catalog
-- `permissions.json` - User permissions
-- `performance_modes.yaml` - Performance profiles
-
-## Testing
-
-```bash
-# Run Phase 0 tests (Foundation)
-python test_phase0.py
-
-# Run Phase 1 tests (Configuration & Core)
-python test_phase1.py
-
-# Run Phase 1 enhancement tests
-python test_phase1_enhancements.py
-
-# Run Phase 2 tests (Performance & Stability)
-python test_phase2.py
-
-# Run Phase 3 tests (Advanced Components)
-python test_phase3.py
-
-# Run Phase 4 tests (Integration)
-python test_integration.py
-
-# Run all tests together
-.\venv\Scripts\python.exe -m pytest test_phase0.py test_phase1.py test_phase2.py test_phase3.py test_integration.py -v
-```
-
-## Project Structure
+This repository contains **Lyra AI Mark 2**, the intermediate client-server predecessor of the Lyra platform. Mark 2 transitioned Lyra from single-file desktop scripts into a multi-process web architecture featuring a FastAPI backend server, async worker process (`ai-worker`), memory watchdog, dependency injection container, and a Tauri/React desktop UI interface.
 
 ```
-Lyra-Mark2/
-├── server/                 # Backend application (Render deployment)
-│   ├── api/                # API routes
-│   ├── config/             # Configuration files
-│   ├── core/               # Core managers and systems
-│   │   ├── managers/       # Manager classes
-│   │   ├── events.py       # Event bus
-│   │   ├── container.py    # DI container
-│   │   └── ...
-│   ├── error/              # Error handling
-│   ├── skills/             # AI skills/capabilities
-│   ├── tools/              # Tool implementations
-│   ├── app.py              # Main application
-│   ├── requirements.txt    # Python dependencies
-│   └── runtime.txt         # Python 3.10.13
-├── ui/                     # Frontend (Tauri + React)
-├── render.yaml             # Render deployment config
-└── README.md
+Lyra Architectural Evolution:
+├── Original Lyra (Lyra-My-Personal-AI-Assistant)
+│   └── Single-file Python modules (main.py, tts_handler.py, ocr_tools.py, agents.py)
+├── Lyra Mark 2 (This Repository - Client-Server Predecessor)
+│   └── Multi-process web architecture (FastAPI backend, memory watchdog, Tauri UI)
+└── Lyra Mark 3 (Lyra-AI-Mark3 - Active Flagship)
+    └── Local-first Personal AI Operating System with intent routing & policy guardrails
 ```
 
-## API Endpoints
+Development on Mark 2 established the core concepts of memory watchdogs, dry-run safety modes, and model registry constraints that were subsequently refactored into the production local-first AI operating system engine in **Lyra Mark 3**.
 
-- `GET /` - Root endpoint with version info
-- `GET /docs` - Interactive API documentation (Swagger UI)
-- `GET /redoc` - Alternative API documentation (ReDoc)
-- `GET /health` - Basic health check
-- `GET /health/core` - Detailed component health
-- `GET /status` - Comprehensive system status
-- `GET /models` - List available models
-- `GET /permissions` - Get permission status
-- `POST /permissions/grant` - Grant permission
-- `POST /permissions/revoke` - Revoke permission
+---
 
-## Development
+## Technical Features (Mark 2)
 
-### Code Style
+- 🧠 **Local-First Architecture**: Early local model loading pipeline
+- 🔐 **Permission System**: Fine-grained RBAC for sensitive system operations
+- 📊 **Model Registry**: RAM-aware model cataloging
+- 💾 **Memory Watchdog**: System RAM monitoring via `psutil`
+- ⚡ **Performance Modes**: Configurable Safe/Balanced execution profiles
 
-- Python: PEP 8
-- Structured logging for all components
-- Type hints for all functions
-- Comprehensive docstrings
+---
 
-### Contributing
+## Project Status & Archival Notice
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests
-5. Submit a pull request
-
-## License
-
-MIT License - See LICENSE file for details
-
-## Acknowledgments
-
-Built with:
-- FastAPI - Web framework
-- Pydantic - Data validation
-- psutil - System monitoring
-- Vosk - Speech-to-text
-- OpenCV - Computer vision
-
-## Support
-
-For issues and questions, please open an issue on GitHub.
+This repository is maintained strictly as an **archived historical predecessor** to demonstrate the architectural evolution and progression of the Lyra AI platform. For the active, maintained codebase, visit **[Lyra Mark 3](https://github.com/Balu-Annapureddy/Lyra-AI-Mark3)**.
